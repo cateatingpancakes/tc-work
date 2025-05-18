@@ -1,0 +1,85 @@
+{
+    "__comment1": [
+        "This .json is a config file for a deterministic finite automaton.",
+        "The states and the alphabet (symbols) are all expressed as strings.",
+        "This automaton checks if a string of 0 and 1 has a 1 on the third-last position."
+    ],
+
+
+    "__comment2": [
+        "states: A list of every state the automaton could be in."
+    ],
+    "states": [
+        "000",
+        "001",
+        "010",
+        "011",
+        "100",
+        "101",
+        "110",
+        "111"
+    ],
+
+
+    "__comment3": [
+        "accepting: A list of states the automaton will accept."
+    ],
+    "accepting": [
+        "100", "101", "110", "111"
+    ],
+
+
+    "__comment4": [
+        "initial: The starting state of the automaton."
+    ],
+    "initial": "000",
+
+
+    "__comment5": [
+        "symbols: The automaton's alphabet, that is, a list with every character it can accept."
+    ],
+    "symbols": [
+        "0",
+        "1"
+    ],
+
+    "__comment6": [
+        "ruleset: The automaton's transition function. Represented as a dictionary, with string keys,",
+        "and dictionary values, containing (symbol, new_state) key-value pairs."
+    ],
+    "__comment7": [
+        "Default behavior is to remain in the current state, if there isn't anything to do for the current symbol."
+    ],
+    "ruleset": {
+        "000": {
+            "1": "001"
+        },
+        "001": {
+            "0": "010",
+            "1": "011"
+        },
+        "010": {
+            "0": "100",
+            "1": "101"
+        },
+        "011": {
+            "0": "110",
+            "1": "111"
+        },
+        "100": {
+            "0": "000",
+            "1": "001"
+        },
+        "101": {
+            "0": "010",
+            "1": "011"
+        },
+        "110": {
+            "0": "100",
+            "1": "101"
+        },
+        "111": {
+            "0": "110"
+        }
+    }
+}

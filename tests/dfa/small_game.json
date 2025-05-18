@@ -1,0 +1,82 @@
+{
+    "states": [
+        "R1__Key%Treasure",
+        "R1__Treasure",
+        "R1__Key",
+        "R1",
+        "R2__Key%Treasure",
+        "R2__Treasure",
+        "R2__Key",
+        "R2",
+        "R3__Key%Treasure",
+        "R3__Treasure",
+        "R3__Key",
+        "R3",
+        "R4__Key%Treasure",
+        "R4__Treasure",
+        "R4__Key",
+        "R4"
+    ],
+    "accepting": [
+        "R4__Key%Treasure",
+        "R4__Treasure",
+        "R4__Key",
+        "R4"
+    ],
+    "initial": "R1",
+    "symbols": [
+        "Up",
+        "Down",
+        "Get"
+    ],
+    "ruleset": {
+        "R1__Key%Treasure": {
+            "Up": "R2__Key%Treasure",
+            "Get": "R1__Key%Treasure"
+        },
+        "R1__Treasure": {
+            "Up": "R2__Treasure",
+            "Get": "R1__Key%Treasure"
+        },
+        "R1__Key": {
+            "Up": "R2__Key",
+            "Get": "R1__Key"
+        },
+        "R1": {
+            "Up": "R2",
+            "Get": "R1__Key"
+        },
+        "R2__Key%Treasure": {
+            "Down": "R1__Key%Treasure",
+            "Up": "R3__Key%Treasure"
+        },
+        "R2__Treasure": {
+            "Down": "R1__Treasure",
+            "Up": "R3__Treasure"
+        },
+        "R2__Key": {
+            "Down": "R1__Key",
+            "Up": "R3__Key"
+        },
+        "R2": {
+            "Down": "R1",
+            "Up": "R3"
+        },
+        "R3__Key%Treasure": {
+            "Down": "R2__Key%Treasure",
+            "Up": "R4__Key%Treasure",
+            "Get": "R3__Treasure"
+        },
+        "R3__Treasure": {
+            "Down": "R2__Treasure",
+            "Up": "R4__Treasure"
+        },
+        "R3__Key": {
+            "Down": "R2__Key",
+            "Get": "R3__Treasure"
+        },
+        "R3": {
+            "Down": "R2"
+        }
+    }
+}
