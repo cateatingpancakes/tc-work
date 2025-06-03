@@ -3,7 +3,7 @@ from collections.abc import Mapping, Iterable
 
 DFA_TYPES = [("states", list[str]), ("accepting", list[str]), ("initial", str), ("symbols", list[str]), ("ruleset", dict[str, dict[str, str]])]
 NFA_TYPES = [("states", list[str]), ("accepting", list[str]), ("initial", str), ("symbols", list[str]), ("ruleset", dict[str, dict[str, list[str]]])]
-TM_TYPES = [("states", list[str]), ("accepting", list[str]), ("tape_symbols", list[str]), ("input_symbols", list[str]), ("blank", str), ("initial", str), ("increment", str), ("decrement", str), ("ruleset", dict[str, list[dict[str, Any]]])]
+TM_TYPES = [("states", list[str]), ("accepting", list[str]), ("symbols", list[str]), ("blank", str), ("initial", str), ("increment", str), ("decrement", str), ("ruleset", list[dict[str, str]])]
 
 # Asserts that an object is of type T
 def assert_type(object: Any, T: TypeVar) -> None:

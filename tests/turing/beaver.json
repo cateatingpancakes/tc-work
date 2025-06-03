@@ -1,0 +1,51 @@
+{
+    "symbols": [
+        "0",
+        "1"
+    ],
+    "states": [
+        "A",
+        "B",
+        "C",
+        "H"
+    ],
+    "blank": "0",
+    "accepting": [
+        "H"
+    ],
+    "initial": "A",
+    "increment": "R",
+    "decrement": "L",
+    "ruleset": [
+        {
+            "old_state": "A", "old_tape": "0",
+            "new_state": "B", "new_tape": "1",
+            "shift": "R"
+        },
+        {
+            "old_state": "A", "old_tape": "1",
+            "new_state": "C", "new_tape": "1",
+            "shift": "L"
+        },
+        {
+            "old_state": "B", "old_tape": "0",
+            "new_state": "A", "new_tape": "1",
+            "shift": "L"
+        },
+        {
+            "old_state": "B", "old_tape": "1",
+            "new_state": "B", "new_tape": "1",
+            "shift": "R"
+        },
+        {
+            "old_state": "C", "old_tape": "0",
+            "new_state": "B", "new_tape": "1",
+            "shift": "L"
+        },
+        {
+            "old_state": "C", "old_tape": "1",
+            "new_state": "H", "new_tape": "1",
+            "shift": "R"
+        }
+    ]
+}

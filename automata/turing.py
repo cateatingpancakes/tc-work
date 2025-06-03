@@ -46,7 +46,7 @@ class TM(BasicAutomaton):
     # Changes the states of the automata based on the input and tape
     # Implements an abstract method from BasicAutomaton
     @override
-    def action(self, symbol: str) -> None:
+    def action(self) -> None:
         # A halted machine doesn't do anything
         if self.halted:
             return
@@ -55,13 +55,13 @@ class TM(BasicAutomaton):
         tape_symbol = self.tape[self.tape_pointer]
 
         # Check each rule for the current input symbol
-        for rule in self.data["ruleset"][symbol]:
+        for rule in self.data["ruleset"]:
             # If any rule matches both the current state and the current tape symbol, we use it
-            if rule["from"]["state"] == self.state and rule["from"]["tape"] == tape_symbol:
+            if rule["old_state"] == self.state and rule["old_tape"] == tape_symbol:
                 # Set the new state
-                self.state = rule["to"]["state"]
+                self.state = rule["new_state"]
                 # Set the new tape symbol
-                self.tape[self.tape_pointer] = rule["to"]["tape"]
+                self.tape[self.tape_pointer] = rule["new_tape"]
 
                 # Move the tape pointer
                 # Check against the increment symbol
@@ -82,6 +82,13 @@ class TM(BasicAutomaton):
         self.halted = True
     
 
+    # Runs the turing machine a number of times
+    @override
+    def action_sequence(self, count: int):
+        for _ in range(count):
+            self.action()
+
+
     # Returns the current tape between two values
     def get_tape(self, front: int, back: int) -> list[str]:
         return [self.tape[position] for position in range(front, back + 1)]
@@ -92,7 +99,7 @@ class TM(BasicAutomaton):
         # Check the input first
         for symbol in tape:
             # If any of the symbols we try to set aren't recognized, throw an exception
-            if symbol not in self.data["tape_symbols"]:
+            if symbol not in self.data["symbols"]:
                 raise ValueError(f"Symbol {symbol} was given to be placed on the tape but is not recognized")
             
         # Clear the old tape

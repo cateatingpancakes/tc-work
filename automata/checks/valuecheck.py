@@ -57,32 +57,31 @@ def assert_transition_nfa(data: dict) -> None:
 
 # Asserts the validity of a TM's transition function
 def assert_transition_tm(data: dict) -> None:
-    # The transition is given as dictionaries containing 5 values, grouped by input symbol
-    for input_symbol, rules in data["ruleset"].items():
-        if input_symbol not in data["input_symbols"]:
-            raise ValueError(f"Input symbol {input_symbol} has rules defined, but is not in the input symbols list")
-        else:
-            for rule in rules:
-                # Check all required keys in a rule
-                for key in ["from", "to", "shift"]:
-                    if key not in rule.keys():
-                        raise ValueError(f"A rule for {input_symbol} does not contain the required key {key}")
-            
-                # Check all the states involved in a rule
-                if rule["from"]["state"] not in data["states"] or rule["to"]["state"] not in data["states"]:
-                    raise ValueError(f"A rule for {input_symbol} contains a state not in the states list")
-                
-                # Check all the tape symbols involved in the rule
-                if rule["from"]["tape"] not in data["tape_symbols"] or rule["to"]["tape"] not in data["tape_symbols"]:
-                    raise ValueError(f"A rule for {input_symbol} contains a tape symbol not in the tape symbols list")
+    # The transition is given as dictionaries containing 5 values
+    # (oldState, oldTape) -> (newState, newTape) on a certain shift
+    for rule in data["ruleset"]:
+        # Check that everything needed for the transition is given
+        for required_field in ["old_state", "old_tape", "new_state", "new_tape", "shift"]:
+                if required_field not in rule.keys():
+                    raise ValueError(f"A rule does not have {required_field} defined")
+        
+        # Check if the symbols are all in the right place, for states:
+        if rule["old_state"] not in data["states"] or rule["new_state"] not in data["states"]:
+            raise ValueError("A transition's input symbol was not found in the list of input symbols")
+        # For symbols on the tape:
+        if rule["old_tape"] not in data["symbols"] or rule["new_tape"] not in data["symbols"]:
+            raise ValueError("A transition involves a tape symbol not found in the list of tape symbols")
+        # For the strings designating left/right shifts:
+        if rule["shift"] != data["decrement"] and rule["shift"] != data["increment"]:
+            raise ValueError("A transition contains an unrecognized shift symbol")
 
                 
 # Asserts the validity of a TM's blank state
 def assert_blank(data: dict) -> None:
-    if data["blank"] not in data["tape_symbols"]:
+    if data["blank"] not in data["symbols"]:
         raise ValueError(f"Blank symbol {data["blank"]} is not in the tape symbols list")
     
 
 DFA_VALIDATORS = [assert_initial, assert_accepting, assert_starting, assert_unique, assert_transition_dfa]
 NFA_VALIDATORS = [assert_initial, assert_accepting, assert_starting, assert_unique, assert_transition_nfa]
-TM_VALIDATORS = [assert_initial, assert_accepting, assert_transition_tm]
+TM_VALIDATORS = [assert_initial, assert_accepting, assert_blank, assert_transition_tm]

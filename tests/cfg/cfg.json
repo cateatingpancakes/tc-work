@@ -1,0 +1,25 @@
+{
+    "variables": [
+        "S", 
+        "A", 
+        "B"
+    ],
+    "terminals": [
+        "a", 
+        "b"
+    ],
+    "productions": [
+        {
+            "from": "S", "to": "AB"
+        },
+        {
+            "from": "A", "to": "a"
+        },
+        {
+            "from": "A", "to": "BA"
+        },
+        {
+            "from": "B", "to": "b"
+        }
+    ]
+}

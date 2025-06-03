@@ -7,3 +7,5 @@ Currently supported automata are DFAs, NFAs and Turing machines. Class code may 
 The `/gamedescribe` directory contains `.json` files that describe a room-based game with items and actions; a player might want to interact in a certain room, the outcome of this depending on the items they have, or a room might be entered only by players possessing a certain item (such as a key). `demo_game.py` loads a file in this format, constructs a DFA for this game, then feeds user input to this DFA, following a terminal prompt (telling the player what the DFA's state currently is).
 ## Matrices
 The `/matrices` directory contains code (`matrix.py`) to load a matrix from a file in a comment-supporting format, an example of which may be found in `matrix.in`.
+## Bonus
+There's now a class for context-free grammars with a CYK algorithm implementation that decides whether a certain string is in the CFG. A demo may be found in `demo_cyk.py`.
